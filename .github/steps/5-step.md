@@ -4,39 +4,63 @@
   Define terms and link to docs.github.com.
 -->
 
-## Step 5: Add your action to the workflow file
+## Step 5: Create Workflow & Consume Output
 
-_Great job! :tada:_
+### 📖 Theory
 
-All of the following steps will add the action to the workflow file that’s already in the repo [`my-workflow.yml` file](/.github/workflows/my-workflow.yml)
+Use a workflow triggered by `issue_comment` to run the local action and then post the retrieved joke as a comment.
 
-### :keyboard: Activity 1: Edit the custom action at the bottom of the workflow file.
+### ⌨️ Activity: Author Workflow
 
-```yaml
-- name: ha-ha
-  uses: ./.github/actions/joke-action
-```
+1. Create `.github/workflows/joke-action.yml`.
 
-Here is what the full file should look like (we’re using issues instead of the pull request event and removing the reference to the hello world action.)
+   ```yaml
+   name: Joke Action
+   on:
+     issue_comment:
+       types: [created]
+   jobs:
+     joke:
+       if: ${{ !github.event.repository.is_template }}
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v5
+         - name: Get Joke
+           id: get_joke
+           uses: ./
+         - name: Post Joke Comment
+           uses: actions/github-script@v7
+           with:
+             script: |
+               const joke = core.getInput('joke') || process.env['JOKE'] || '${{ steps.get_joke.outputs.joke }}';
+               const body = `Here is a joke: ${joke}`;
+               await github.rest.issues.createComment({
+                 owner: context.repo.owner,
+                 repo: context.repo.repo,
+                 issue_number: context.issue.number,
+                 body
+               });
+   ```
 
-```yaml
-name: JS Actions
+1. Commit and push the workflow:
 
-on:
-  issues:
-    types: [labeled]
+   ```sh
+   git add .github/workflows/joke-action.yml
+   git commit -m "Add joke-action workflow consuming output"
+   git push
+   ```
 
-jobs:
-  action:
-    if: ${{ !github.event.repository.is_template }}
-    runs-on: ubuntu-latest
+### 🔍 Activity: Validate Output Wiring
 
-    steps:
-      - uses: actions/checkout@v4
-      - name: ha-ha
-        uses: ./.github/actions/joke-action
-```
+1. Confirm output reference syntax: `${{ steps.get_joke.outputs.joke }}` appears in the workflow.
+1. (Optional) Add a log step before posting:
 
-You can make these changes in your repository by opening [`my-workflow.yml`](/.github/workflows/my-workflow.yml) in another browser tab and [editing the file directly](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files). Make sure to select the `Commit directly to the main branch` option.
+   ```yaml
+   - name: Log Joke
+     run: echo "Joke => ${{ steps.get_joke.outputs.joke }}"
+   ```
 
-Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
+### Transition
+
+- **Actions Trigger:** [`push`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push)
+- **Grading-Check:** Workflow file exists with `on: issue_comment` and a step referencing `${{ steps.get_joke.outputs.joke }}`.

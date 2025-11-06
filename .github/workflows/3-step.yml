@@ -6,7 +6,8 @@ on:
     branches:
       - main
     paths:
-      - ".github/actions/**"
+      - "package.json"
+      - "dist/index.js"
 
 permissions:
   contents: read
@@ -59,13 +60,20 @@ jobs:
 
       # START: Check practical exercise
 
-      - name: Check if action.yml contains metadata outputs
-        id: check-outputs-metadata
+      - name: Check for build script in package.json
+        id: check-build-script
         continue-on-error: true
         uses: skills/action-keyphrase-checker@v1
         with:
-          text-file: .github/actions/joke-action/action.yml
-          keyphrase: outputs
+          text-file: package.json
+          keyphrase: "ncc build src/main.js -o dist"
+
+      - name: Check if dist/index.js exists
+        id: check-dist-index
+        continue-on-error: true
+        uses: skills/exercise-toolkit/actions/file-exists@v0.7.0
+        with:
+          file: dist/index.js
 
       - name: Update comment - step results
         uses: GrantBirki/comment@v2.1.1
@@ -78,8 +86,10 @@ jobs:
           vars: |
             step_number: 3
             results_table:
-              - description: "Added outputs metadata to action.yml"
-                passed: ${{ steps.check-outputs-metadata.outcome == 'success' }}
+              - description: "Build script present in package.json"
+                passed: ${{ steps.check-build-script.outcome == 'success' }}
+              - description: "dist/index.js generated"
+                passed: ${{ steps.check-dist-index.outcome == 'success' }}
 
       # END: Check practical exercise
 

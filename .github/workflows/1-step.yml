@@ -6,7 +6,8 @@ on:
     branches:
       - main
     paths:
-      - ".github/actions/**"
+      - "package.json"
+      - ".gitignore"
 
 permissions:
   contents: read
@@ -64,7 +65,39 @@ jobs:
         continue-on-error: true
         uses: skills/exercise-toolkit/actions/file-exists@v0.7.0
         with:
-          file: .github/actions/joke-action/package.json
+          file: package.json
+
+      - name: Check for @actions/core dependency
+        id: check-core-dep
+        continue-on-error: true
+        uses: skills/action-keyphrase-checker@v1
+        with:
+          text-file: package.json
+          keyphrase: "@actions/core"
+
+      - name: Check for @actions/github dependency
+        id: check-github-dep
+        continue-on-error: true
+        uses: skills/action-keyphrase-checker@v1
+        with:
+          text-file: package.json
+          keyphrase: "@actions/github"
+
+      - name: Check for @vercel/ncc dependency
+        id: check-ncc-dep
+        continue-on-error: true
+        uses: skills/action-keyphrase-checker@v1
+        with:
+          text-file: package.json
+          keyphrase: "@vercel/ncc"
+
+      - name: Check .gitignore excludes node_modules
+        id: check-gitignore
+        continue-on-error: true
+        uses: skills/action-keyphrase-checker@v1
+        with:
+          text-file: .gitignore
+          keyphrase: "node_modules/"
 
       - name: Update comment - step results
         uses: GrantBirki/comment@v2.1.1
@@ -77,8 +110,16 @@ jobs:
           vars: |
             step_number: 1
             results_table:
-              - description: "Created package.json in .github/actions/joke-action/"
+              - description: "package.json file exists"
                 passed: ${{ steps.check-package-json.outcome == 'success' }}
+              - description: "@actions/core dependency present"
+                passed: ${{ steps.check-core-dep.outcome == 'success' }}
+              - description: "@actions/github dependency present"
+                passed: ${{ steps.check-github-dep.outcome == 'success' }}
+              - description: "@vercel/ncc dependency present"
+                passed: ${{ steps.check-ncc-dep.outcome == 'success' }}
+              - description: ".gitignore excludes node_modules/"
+                passed: ${{ steps.check-gitignore.outcome == 'success' }}
 
       # END: Check practical exercise
 

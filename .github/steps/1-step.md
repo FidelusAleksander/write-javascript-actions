@@ -6,80 +6,57 @@
   Encourage users to open new tabs for steps!
 -->
 
-## Step 1: Initialize a new JavaScript project
+## Step 1: Initialize Project & Install Dependencies
 
-_Welcome to the course :tada:_
+### 📖 Theory
 
-### Configuring a workflow
+Set up a modern root-level JavaScript action project and install required runtime and build dependencies without committing `node_modules`.
 
-Actions are enabled on your repository by default, but we still have to tell our repository to use them. We do this by creating a workflow file in our repository.
+### ⌨️ Activity: Initialize Project
 
-A **workflow** file can be thought of as the recipe for automating a task. They house the start to finish instructions, in the form of `jobs` and `steps`, for what should happen based on specific triggers.
+1. Open a terminal and clone your exercise repository locally.
+1. Switch to the `main` branch if not already: `git switch main`.
+1. At the repository root (not inside `.github/actions/`), initialize a new project:
 
-Your repository can contain multiple **workflow** files that carry out a wide variety of tasks. It is important to consider this when deciding on a name for your **workflow**. The name you choose should reflect the tasks being performed.
+```sh
+npm init -y
+```
 
-_In our case, we will use this one **workflow** file for many things, which leads us to break this convention for teaching purposes._
+1. Install action runtime & build dependencies:
 
-Read more about [workflows](https://docs.github.com/en/actions/writing-workflows/about-workflows)
+```sh
+npm install @actions/core @actions/github @vercel/ncc
+```
 
-## On to your development environment
+1. (Optional) Plan for local debugging later; you will add `@github/local-action` in Step 2.
 
-Our JavaScript actions are going to leverage the [GitHub ToolKit](https://github.com/actions/toolkit) for developing GitHub Actions.
+1. Create a `src/` directory (leave it empty this step):
 
-This is an external library that we will install using `npm` which means that you will need [Node.js](https://nodejs.org/) installed.
+```sh
+mkdir src
+```
 
-We find writing actions to be easier from a local environment vs trying to do everything right here in the repository. Doing these steps locally allows you to use the editor of your choice so that you have all the extensions and snippets you are used to when writing code.
+1. Add or update `.gitignore` to exclude `node_modules/`:
 
-If you do not have a preferred environment then we suggest following along exactly as you see on the screen, which means you'll need to install [Visual Studio Code](https://code.visualstudio.com/).
+```sh
+echo "node_modules/" >> .gitignore
+```
 
-## Don't forget to set up your workstation
+1. Review `package.json` to confirm dependencies are listed (do not create `action.yml` yet).
 
-Most of your work going forward will take place away from your Skills repository, so before continuing with the course ensure you have the following installed on your **local machine**.
+1. Commit and push your changes:
 
-1. [ ] [Node.js](https://nodejs.org)
-2. [ ] [Visual Studio Code](https://code.visualstudio.com/) or your editor of choice
-3. [ ] [Git](https://git-scm.com/)
+```sh
+git add .
+git commit -m "Initialize project and add core dependencies"
+git push
+```
 
-### :keyboard: Activity 1: Initialize a new JavaScript project
+<details>
+<summary>Having trouble? 🤷</summary><br/>
 
-Once you have the necessary tools installed locally, follow these steps to begin creating your first action.
+- Ensure you are at the root of the repository before running `npm init -y`.
+- If `git switch main` fails, use `git checkout main` (older Git versions).
+- Run `npm -v` to verify Node.js tooling is installed.
 
-1. Open the **Terminal** (Mac and Linux) or **Command Prompt** (Windows) on your local machine
-2. Clone your Skills repo to your local machine:
-   ```shell
-   git clone <this repository URL>.git
-   ```
-3. Navigate to the folder you just cloned:
-   ```shell
-   cd <local folder with cloned repo>
-   ```
-4. We are using branch called `main`.
-   ```shell
-   git switch main
-   ```
-5. Create a new folder for our actions files:
-   ```shell
-   mkdir -p .github/actions/joke-action
-   ```
-6. Navigate to the `joke-action` folder you just created:
-   ```shell
-   cd .github/actions/joke-action
-   ```
-7. Initialize a new project:
-   ```shell
-   npm init -y
-   ```
-8. Install the **request**, **request-promise** and **@actions/core** dependencies using `npm` from the [GitHub ToolKit](https://github.com/actions/toolkit):
-   ```shell
-   npm install --save request request-promise @actions/core
-   ```
-9. Commit those newly added files,we will remove the need to upload **node_modules** in a later step:
-   ```shell
-   git add .
-   git commit -m 'add project dependencies'
-   ```
-10. Push your changes to your repository:
-    ```shell
-    git push
-    ```
-11. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
+</details>

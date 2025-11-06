@@ -6,7 +6,8 @@ on:
     branches:
       - main
     paths:
-      - ".github/actions/**"
+      - "src/main.js"
+      - "src/joke.js"
 
 permissions:
   contents: read
@@ -59,12 +60,19 @@ jobs:
 
       # START: Check practical exercise
 
-      - name: Check if action.yml file exists
-        id: check-action-yml
+      - name: Check if src/main.js exists
+        id: check-main-js
         continue-on-error: true
         uses: skills/exercise-toolkit/actions/file-exists@v0.7.0
         with:
-          file: .github/actions/joke-action/action.yml
+          file: src/main.js
+
+      - name: Check if src/joke.js exists
+        id: check-joke-js
+        continue-on-error: true
+        uses: skills/exercise-toolkit/actions/file-exists@v0.7.0
+        with:
+          file: src/joke.js
 
       - name: Update comment - step results
         uses: GrantBirki/comment@v2.1.1
@@ -77,8 +85,10 @@ jobs:
           vars: |
             step_number: 2
             results_table:
-              - description: "Created action.yml metadata file in .github/actions/joke-action/"
-                passed: ${{ steps.check-action-yml.outcome == 'success' }}
+              - description: "src/main.js exists"
+                passed: ${{ steps.check-main-js.outcome == 'success' }}
+              - description: "src/joke.js exists"
+                passed: ${{ steps.check-joke-js.outcome == 'success' }}
 
       # END: Check practical exercise
 

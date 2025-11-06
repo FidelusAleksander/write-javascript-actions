@@ -4,39 +4,90 @@
   Define terms and link to docs.github.com.
 -->
 
-## Step 2: Configure Your Action
+## Step 2: Create Source Files & Run Locally
 
-_Let's keep going! :bike:_
+### 📖 Theory
 
-### Excellent!
+Author the action’s core logic and verify it runs locally before bundling.
 
-Now that we have the custom action pre-requisites, let us create **joke-action** action.
+### ⌨️ Activity: Implement Source
 
-### :keyboard: Activity 1: Configure Your Action
+1. In the repository root, create `src/joke.js`:
 
-All of the following steps take place inside of the `.github/actions/joke-action` directory.
-
-We will start with using the parameters that are **required** and later implement some optional parameters as our action evolves.
-
-1. Create a new file in: `.github/actions/joke-action/action.yml`
-2. Add the following contents to the `.github/actions/joke-action/action.yml` file:
-
-   ```yaml
-   name: "my joke action"
-
-   description: "use an external API to retrieve and display a joke"
-
-   runs:
-     using: "node16"
-     main: "main.js"
+   ```js
+   // src/joke.js
+   export async function fetchJoke() {
+     const res = await fetch("https://official-joke-api.appspot.com/random_joke");
+     if (!res.ok) throw new Error(`Failed to get joke: ${res.status}`);
+     const data = await res.json();
+     return `${data.setup} ${data.punchline}`;
+   }
    ```
 
-3. Save the `action.yml` file
-4. Commit the changes and push them to the `main` branch:
-   ```shell
-   git add action.yml
-   git commit -m 'create action.yml'
-   git pull
+1. Create `src/main.js`:
+
+   ```js
+   // src/main.js
+   import * as core from "@actions/core";
+   import { fetchJoke } from "./joke.js";
+
+   async function run() {
+     try {
+       const joke = await fetchJoke();
+       core.setOutput("joke", joke);
+       console.log("Joke:", joke);
+     } catch (err) {
+       core.setFailed(err.message);
+     }
+   }
+   run();
+   ```
+
+1. Run locally to verify:
+
+   ```sh
+   node src/main.js
+   ```
+
+1. Commit and push:
+
+   ```sh
+   git add src/joke.js src/main.js
+   git commit -m "Add joke source and main entry"
    git push
    ```
-5. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
+
+### 🛠 Activity (Optional): Add Debugging Support
+
+1. Install dev dependency:
+
+   ```sh
+   npm install -D @github/local-action
+   ```
+
+1. Create `.vscode/launch.json`:
+
+   ```json
+   {
+     "version": "0.2.0",
+     "configurations": [
+       {
+         "name": "Debug Action",
+         "type": "node",
+         "request": "launch",
+         "runtimeExecutable": "npx",
+         "cwd": "${workspaceRoot}",
+         "args": ["@github/local-action", ".", "src/main.js"],
+         "console": "integratedTerminal",
+         "skipFiles": ["<node_internals>/**", "node_modules/**"]
+       }
+     ]
+   }
+   ```
+
+1. Set breakpoints in `src/main.js` and start the "Debug Action" configuration.
+
+### Transition
+
+- **Actions Trigger:** [`push`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push)
+- **Grading-Check:** `src/main.js` & `src/joke.js` exist.

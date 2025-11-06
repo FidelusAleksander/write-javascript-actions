@@ -4,16 +4,20 @@
   Define terms and link to docs.github.com.
 -->
 
-## Step 6: Trigger the joke action
+## Step 6: Trigger & Validate
 
-_Great job! :heart:_
+### 📖 Theory
 
-Everything is all set up and now we are ready to start laughing. You will find you have some joke related labels available to you in this repository. You don't have to use them, any label will trigger our workflow, but the easiest way to follow along would be to use suggested labels.
+Trigger the joke workflow with an issue comment and let this step confirm the previous run completed successfully.
 
-### Trigger a joke
+### ⌨️ Activity: Execute & Review
 
-1. Open issue #1 in the "Issues tab"
-2. Apply the `first-joke` label to the issue
-3. Wait a few seconds and then apply the `second-joke` label to the issue
-4. Check the `JS Actions` workflow results on the "Actions tab"
-5. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
+1. Open (or create) an issue.
+1. Add a new comment to trigger `joke-action.yml`.
+1. After it completes, view the run details to see the posted joke comment.
+1. This step’s workflow will automatically pick up the completed run via `workflow_run`.
+
+### Transition
+
+- **Actions Trigger:** [`workflow_run`](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflow_run)
+- **Grading-Check:** Previous "Joke Action" workflow run concluded with `success`.

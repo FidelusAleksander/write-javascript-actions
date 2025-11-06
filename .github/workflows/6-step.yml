@@ -2,8 +2,11 @@ name: Step 6
 
 on:
   workflow_dispatch:
-  issues:
-    types: [labeled]
+  workflow_run:
+    workflows:
+      - Joke Action
+    types:
+      - completed
 
 permissions:
   contents: read
@@ -56,15 +59,15 @@ jobs:
 
       # START: Check practical exercise
 
-      - name: Check if "second joke" label was applied
-        id: check-label-applied
+      - name: Check Joke Action workflow run success
+        id: check-joke-run
         continue-on-error: true
         run: |
-          if [[ "${{ github.event.label.name }}" == "second joke" ]]; then
-            echo "Label 'second joke' was applied successfully"
+          if [ "${{ github.event.workflow_run.conclusion }}" = "success" ]; then
+            echo "Joke Action workflow run was successful"
             exit 0
           else
-            echo "Expected label 'second joke' but got '${{ github.event.label.name }}'"
+            echo "Joke Action workflow run conclusion: ${{ github.event.workflow_run.conclusion }}"
             exit 1
           fi
 
@@ -79,8 +82,8 @@ jobs:
           vars: |
             step_number: 6
             results_table:
-              - description: "Applied 'second joke' label to trigger the action"
-                passed: ${{ steps.check-label-applied.outcome == 'success' }}
+              - description: "Joke Action workflow run concluded successfully"
+                passed: ${{ steps.check-joke-run.outcome == 'success' }}
 
       # END: Check practical exercise
 
