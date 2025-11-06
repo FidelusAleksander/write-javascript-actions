@@ -1,9 +1,3 @@
-<!--
-  <<< Author notes: Step 2 >>>
-  Start this step by acknowledging the previous step.
-  Define terms and link to docs.github.com.
--->
-
 ## Step 2: Create Source Files & Run Locally
 
 ### 📖 Theory
@@ -12,52 +6,75 @@ Author the action’s core logic and verify it runs locally before bundling.
 
 ### ⌨️ Activity: Implement Source
 
-1. In the repository root, create `src/joke.js`:
+1. Create `src/` directory to hold your GitHub Action javascript files:
 
-   ```js
-   // src/joke.js
-   export async function fetchJoke() {
-     const res = await fetch("https://official-joke-api.appspot.com/random_joke");
-     if (!res.ok) throw new Error(`Failed to get joke: ${res.status}`);
-     const data = await res.json();
-     return `${data.setup} ${data.punchline}`;
-   }
+   ```sh
+   mkdir src
    ```
 
-1. Create `src/main.js`:
+1. Create `src/joke.js` file to hold the logic for fetching a joke from the `icanhazdadjoke.com` API:
 
    ```js
-   // src/main.js
-   import * as core from "@actions/core";
-   import { fetchJoke } from "./joke.js";
+   const request = require("request-promise");
 
-   async function run() {
-     try {
-       const joke = await fetchJoke();
-       core.setOutput("joke", joke);
-       console.log("Joke:", joke);
-     } catch (err) {
-       core.setFailed(err.message);
-     }
+   const options = {
+     method: "GET",
+     uri: "https://icanhazdadjoke.com/",
+     headers: {
+       Accept: "application/json",
+       "User-Agent": "Writing JavaScript action GitHub Skills exercise.",
+     },
+     json: true,
+   };
+
+   async function getJoke() {
+     const res = await request(options);
+     return res.joke;
    }
-   run();
+
+   module.exports = getJoke;
    ```
 
-1. Run locally to verify:
+1. Create `src/main.js` that will be the main entry point for your action:
+
+    ```js
+    const getJoke = require("./joke");
+    const core = require("@actions/core");
+
+    async function run() {
+      const joke = await getJoke();
+      console.log(joke);
+      core.setOutput("joke-output", joke);
+    }
+
+    run();
+    ```
+
+1. Run the action locally to verify it works:
 
    ```sh
    node src/main.js
    ```
 
+   <!-- TODO: Add screenshot example -->
+
 1. Commit and push:
 
    ```sh
-   git add src/joke.js src/main.js
-   git commit -m "Add joke source and main entry"
+   git add src/
+   git commit -m "Add Dad Joke action source files"
    git push
    ```
 
-### 🛠 Activity (Optional): Add Debugging Support
+### 🛠 Activity (Optional): Debug your action
+
+>[!NOTE]
+> This activity is optional and not required to complete the exercise.
+>
+> Learning how to debug your action code can be very helpful!
+
+<details>
+<summary>Show steps</summary><br/>
 
 1. Install dev dependency:
 
@@ -87,7 +104,4 @@ Author the action’s core logic and verify it runs locally before bundling.
 
 1. Set breakpoints in `src/main.js` and start the "Debug Action" configuration.
 
-### Transition
-
-- **Actions Trigger:** [`push`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push)
-- **Grading-Check:** `src/main.js` & `src/joke.js` exist.
+</details>
