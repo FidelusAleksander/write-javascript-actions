@@ -4,9 +4,12 @@
 
 Author the action’s core logic and verify it runs locally before bundling.
 
-### ⌨️ Activity: Implement Source
+### ⌨️ Activity: Implement the Dad Jokes Action
 
-1. Create `src/` directory to hold your GitHub Action javascript files:
+Now that your project is initialized and dependencies are installed, it's time to create the source files for your Dad Jokes GitHub Action.
+
+
+1. Create `src/` directory to hold your GitHub Action JavaScript files:
 
    ```sh
    mkdir src

@@ -1,12 +1,9 @@
 ## Step 6: Trigger & Validate
 
-### 📖 Theory
 
-Trigger the joke workflow with an issue comment and let this step confirm the previous run completed successfully.
 
-### ⌨️ Activity: Execute & Review
+### ⌨️ Activity: Try out your action!
 
-1. Open (or create) an issue.
-1. Add a new comment to trigger `joke-action.yml`.
-1. After it completes, view the run details to see the posted joke comment.
-1. This step’s workflow will automatically pick up the completed run via `workflow_run`.
+1. Create a comment in this issue (or create a new one) with the text `/joke` 
+1. Monitor the `actions` tab for the "Joke Action" workflow run to complete.
+1. After it completes you should see a new comment posted by the bot with the dad joke!

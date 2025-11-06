@@ -1,14 +1,12 @@
 ## Step 1: Initializing the Dad Jokes GitHub Action
 
-Imagine you have a repetitive task that you want to automate. You've searched through the **GitHub Marketplace** to see if there are any existing actions that suit your needs, but found nothing - because your requirement is very specific: **generating DAD JOKES**! 🎭
+Imagine you have a repetitive task that you want to automate. You've searched through the [**GitHub Marketplace**](https://github.com/marketplace?type=actions) to see if there are any existing actions that suit your needs, but found nothing - because your task is very specific: **generating DAD JOKES**! 🎭
 
 Since no pre-built action exists for your quirky automation needs, it's time to roll up your sleeves and create your own
 
-### 📖 Theory
-
-The `@actions/core` package provides essential utilities for interacting with the GitHub Actions runtime, while `@actions/github` gives you access to GitHub's API and workflow context.
-
 ### ⌨️ Activity: Set up your development environment
+
+Let's use **GitHub Codespaces** to set up a cloud-based development environment and work in it for the remainder of the exercise!
 
 1. Right-click the below button to open the **Create Codespace** page in a new tab. Use the default configuration.
 
@@ -28,16 +26,18 @@ The `@actions/core` package provides essential utilities for interacting with th
    npm --version
    ```
 
-<details>
-<summary>Having trouble? 🤷</summary><br/>
+   <details>
+   <summary>Having trouble? 🤷</summary><br/>
 
-- Make sure you selected your personal copy of the repository, not the original template.
-- If the Codespace fails to start, try refreshing the page and creating a new one.
-- Node.js and npm should be pre-installed in the development environment.
+   - Make sure you selected your personal copy of the repository, not the original template.
+   - If the Codespace fails to start, try refreshing the page and creating a new one.
+   - Node.js and npm should be pre-installed in the development environment.
 
-</details>
+   </details>
 
 ### ⌨️ Activity: Initialize Project
+
+Now that your Codespace is ready, let's initialize a new Node.js project and install the dependencies needed for your Dad Jokes action.
 
 1. Within your GitHub Codespace terminal window initialize a new project:
 
@@ -51,20 +51,24 @@ The `@actions/core` package provides essential utilities for interacting with th
    npm install request request-promise @actions/core @vercel/ncc
    ```
 
+1. Review `package.json` to confirm dependencies are listed in the `dependencies` section.
+
 1. Open the `.gitignore` file and add an entry to exclude the `node_modules` directory from being tracked by git:
 
    ```text
    node_modules/
    ```
 
-1. Review `package.json` to confirm dependencies are listed.
+   We don't want to commit `node_modules` because it contains thousands of files that would bloat the repository. 
+
+   > 🪧 **Note:** Instead, later in the exercise you will bundle your action into a single JavaScript file with all dependencies included.
 
 1. Commit and push your changes:
 
    ```sh
    git status
    git add .
-   git commit -m "Initialize project and add core dependencies"
+   git commit -m "Initialize project"
    git push
    ```
 

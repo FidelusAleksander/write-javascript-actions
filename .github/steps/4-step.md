@@ -1,4 +1,4 @@
-## Step 4: Add Action Metadata (action.yml)
+## Step 4: Add Action Metadata
 
 ### 📖 Theory
 

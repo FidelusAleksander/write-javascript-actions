@@ -1,8 +1,8 @@
 ## Step 3: Bundle the Action
 
-### 📖 Theory
+### 📖 Theory: Bundling the action
 
-Bundle dependencies into a single optimized `dist/index.js` with `@vercel/ncc` so you never commit `node_modules`.
+
 
 ### ⌨️ Activity: Build Setup & Bundle
 
@@ -28,6 +28,3 @@ Bundle dependencies into a single optimized `dist/index.js` with `@vercel/ncc` s
    git commit -m "Add ncc build script and bundled dist/index.js"
    git push
    ```
-
-
-
