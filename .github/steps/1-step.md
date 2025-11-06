@@ -51,10 +51,10 @@ The `@actions/core` package provides essential utilities for interacting with th
    npm install request request-promise @actions/core @vercel/ncc
    ```
 
-1. Update `.gitignore` to exclude `node_modules/`:
+1. Open the `.gitignore` file and add an entry to exclude the `node_modules` directory from being tracked by git:
 
-   ```sh
-   echo "node_modules/" >> .gitignore
+   ```text
+   node_modules/
    ```
 
 1. Review `package.json` to confirm dependencies are listed.
@@ -62,6 +62,7 @@ The `@actions/core` package provides essential utilities for interacting with th
 1. Commit and push your changes:
 
    ```sh
+   git status
    git add .
    git commit -m "Initialize project and add core dependencies"
    git push
