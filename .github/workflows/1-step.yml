@@ -1,7 +1,6 @@
 name: Step 1
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -19,6 +18,7 @@ env:
 
 jobs:
   find_exercise:
+    if: github.run_number != 1
     name: Find Exercise Issue
     uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.7.0
 
@@ -99,6 +99,21 @@ jobs:
           text-file: .gitignore
           keyphrase: "node_modules/"
 
+      - name: Check node_modules is not committed
+        id: check-node-modules-not-committed
+        continue-on-error: true
+        run: |
+          if [ -d "node_modules" ] || find . -name "node_modules" -type d | grep -q .; then
+            found_dirs=$(find . -name "node_modules" -type d)
+            echo "❌ Found node_modules directory in repository"
+            echo "$found_dirs"
+            echo "STEP_MESSAGE=Found node_modules committed to repository. Remove it from the repository." >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo "✅ No node_modules directory found in repository"
+            echo "STEP_MESSAGE=node_modules properly excluded from repository" >> $GITHUB_OUTPUT
+          fi
+
       - name: Update comment - step results
         uses: GrantBirki/comment@v2.1.1
         with:
@@ -120,6 +135,8 @@ jobs:
                 passed: ${{ steps.check-ncc-dep.outcome == 'success' }}
               - description: ".gitignore excludes node_modules/"
                 passed: ${{ steps.check-gitignore.outcome == 'success' }}
+              - description: "${{ steps.check-node-modules-not-committed.outputs.STEP_MESSAGE }}"
+                passed: ${{ steps.check-node-modules-not-committed.outcome == 'success' }}
 
       # END: Check practical exercise
 
