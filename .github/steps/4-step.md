@@ -2,7 +2,14 @@
 
 ### 📖 Theory
 
-Define the action’s interface (name, description, outputs, runtime, main entry) via `action.yml` pointing to the bundled file.
+Every GitHub Action requires an `action.yml` metadata file that defines the action's interface. This file tells GitHub:
+
+- **What the action does**: Name and description for marketplace and workflows
+- **How to run it**: Which runtime to use (`node24`) and entry point file (`dist/index.js`)
+- **What it provides**: Output values that workflows can access
+- **What it needs**: Input parameters (none in our case)
+
+The `action.yml` file is like a contract between your action and the workflows that use it. It must be in the repository root and point to your bundled file.
 
 ### ⌨️ Activity: Create Metadata File
 

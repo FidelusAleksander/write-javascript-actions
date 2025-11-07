@@ -59,7 +59,13 @@ Now that your project is initialized and dependencies are installed, it's time t
    node src/main.js
    ```
 
-   <!-- TODO: Add screenshot example -->
+   You should see a random dad joke printed to the console, like:
+
+   ```text
+   Why don't scientists trust atoms? Because they make up everything!
+   ```
+
+   > 💡 **What's happening**: Your action fetches a joke from the icanhazdadjoke.com API, prints it to the console, and sets it as an output using `core.setOutput()` for use in GitHub Actions workflows.
 
 1. Commit and push:
 
