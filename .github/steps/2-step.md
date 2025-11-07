@@ -1,13 +1,20 @@
 ## Step 2: Create Source Files & Run Locally
 
-### 📖 Theory
+Nice! Now that we have the project initialized and dependencies installed, it's time to create the source files for your Dad Jokes GitHub Action.
 
-Author the action’s core logic and verify it runs locally before bundling.
+### 📖 Theory: The GitHub Actions Toolkit
+
+The `@actions/core` library is the main library from the [GitHub Actions Toolkit](https://github.com/actions/toolkit), a collection of packages for building JavaScript GitHub Actions. It provides essential methods to interact with the GitHub Actions runtime environment, accept action inputs, and produce outputs for other workflow steps.
+
+> [!TIP]
+> The [GitHub Actions Toolkit](https://github.com/actions/toolkit) includes other useful libraries like `@actions/github` for interacting with the GitHub API and `@actions/artifact` for uploading and downloading artifacts. 
+> 
+> Visit the [actions/toolkit](https://github.com/actions/toolkit) repository for more.
+
 
 ### ⌨️ Activity: Implement the Dad Jokes Action
 
 Now that your project is initialized and dependencies are installed, it's time to create the source files for your Dad Jokes GitHub Action.
-
 
 1. Create `src/` directory to hold your GitHub Action JavaScript files:
 
@@ -38,20 +45,26 @@ Now that your project is initialized and dependencies are installed, it's time t
    module.exports = getJoke;
    ```
 
+   The `getJoke` function makes an HTTP GET request to the `icanhazdadjoke.com` API and returns a random dad joke.
+
+   We export the `getJoke` function so it can be used in other files.
+
 1. Create `src/main.js` that will be the main entry point for your action:
 
-    ```js
-    const getJoke = require("./joke");
-    const core = require("@actions/core");
+   ```js
+   const getJoke = require("./joke");
+   const core = require("@actions/core");
 
-    async function run() {
-      const joke = await getJoke();
-      console.log(joke);
-      core.setOutput("joke-output", joke);
-    }
+   async function run() {
+     const joke = await getJoke();
+     console.log(joke);
+     core.setOutput("joke", joke);
+   }
 
-    run();
-    ```
+   run();
+   ```
+
+   We call the `getJoke` function and call the `core.setOutput()` method to set the `joke` output of your GitHub Action.
 
 1. Run the action locally to verify it works:
 
@@ -59,13 +72,7 @@ Now that your project is initialized and dependencies are installed, it's time t
    node src/main.js
    ```
 
-   You should see a random dad joke printed to the console, like:
-
-   ```text
-   Why don't scientists trust atoms? Because they make up everything!
-   ```
-
-   > 💡 **What's happening**: Your action fetches a joke from the icanhazdadjoke.com API, prints it to the console, and sets it as an output using `core.setOutput()` for use in GitHub Actions workflows.
+  <!-- TODO: ADD SCREENSHOT -->
 
 1. Commit and push:
 
@@ -74,43 +81,3 @@ Now that your project is initialized and dependencies are installed, it's time t
    git commit -m "Add Dad Joke action source files"
    git push
    ```
-
-### 🛠 Activity (Optional): Debug your action
-
->[!NOTE]
-> This activity is optional and not required to complete the exercise.
->
-> Learning how to debug your action code can be very helpful!
-
-<details>
-<summary>Show steps</summary><br/>
-
-1. Install dev dependency:
-
-   ```sh
-   npm install -D @github/local-action
-   ```
-
-1. Create `.vscode/launch.json`:
-
-   ```json
-   {
-     "version": "0.2.0",
-     "configurations": [
-       {
-         "name": "Debug Action",
-         "type": "node",
-         "request": "launch",
-         "runtimeExecutable": "npx",
-         "cwd": "${workspaceRoot}",
-         "args": ["@github/local-action", ".", "src/main.js"],
-         "console": "integratedTerminal",
-         "skipFiles": ["<node_internals>/**", "node_modules/**"]
-       }
-     ]
-   }
-   ```
-
-1. Set breakpoints in `src/main.js` and start the "Debug Action" configuration.
-
-</details>
