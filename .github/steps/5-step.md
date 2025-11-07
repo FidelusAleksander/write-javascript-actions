@@ -25,10 +25,10 @@ This pattern shows how actions can be chained together and how outputs flow betw
    ```yaml
    name: Joke Action
    on:
-     issue_comment:
-       types: [created]
+    issue_comment:
+      types: [created]
 
-  permissions:
+   permissions:
     issues: write
     contents: read
   
