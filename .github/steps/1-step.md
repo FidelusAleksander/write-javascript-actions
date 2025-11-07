@@ -1,8 +1,14 @@
-## Step 1: Initializing the Dad Jokes GitHub Action
+## Step 1: Setting up the project
 
-Imagine you have a repetitive task that you want to automate. You've searched through the [**GitHub Marketplace**](https://github.com/marketplace?type=actions) to see if there are any existing actions that suit your needs, but found nothing - because your task is very specific: **generating DAD JOKES**! 🎭
+Imagine you’ve got a repetitive task you’d love to automate. You've searched through the [**GitHub Marketplace**](https://github.com/marketplace?type=actions) for existing actions that might help, you come up empty-handed…
 
-Since no pre-built action exists for your quirky automation needs, it's time to roll up your sleeves and create your own
+Maybe that’s because your task is a bit _too_ unique 😆
+
+**GENERATING DAD JOKES**! 🎭
+
+<img width="600" alt="dadjoke-mona" src="https://github.com/user-attachments/assets/46b6b931-8d1f-4a01-88f4-4568704039a0" />
+
+Since no pre-built action exists for your quirky automation needs, it's time to roll up your sleeves and create your own!
 
 ### ⌨️ Activity: Set up your development environment
 
