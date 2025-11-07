@@ -1,34 +1,23 @@
-<!--
-  <<< Author notes: Finish >>>
-  Review what we learned, ask for feedback, provide next steps.
--->
+## Review
 
-## Finish
+_Congratulations, you've completed this exercise and learned how to write JavaScript GitHub Actions!_
 
-<img src=https://octodex.github.com/images/poptocat_v2.png alt=celebrate width=300 align=right>
+<img src="https://octodex.github.com/images/jetpacktocat.png" alt="celebrate" width=200 align=right>
 
-### Congratulations, you've completed this course!
+Here's a recap of your accomplishments:
 
-In this course, you've learned a lot about developing custom actions using JavaScript and Actions Toolkit.
-
-## Publishing your actions
-
-Publishing your actions is a great way to help others in your team and across the GitHub community. Although actions do not need to be published to be consumed, by adding them to the marketplace you make them easier to find.
-
-Some notable actions you will find on the marketplace are:
-
-- [Actions for Discord](https://github.com/marketplace/actions/actions-for-discord)
-- [GitHub Action for Slack](https://github.com/marketplace/actions/github-action-for-slack)
-- [Jekyll action](https://github.com/marketplace/actions/jekyll-action)
-- [Run Jest](https://github.com/marketplace/actions/run-jest)
-
-And that just scratches the surface of the 1600+ and counting actions you will find on the marketplace
-
-Follow [this guide](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/publishing-actions-in-github-marketplace#publishing-an-action) to learn how to publish your actions to the GitHub Marketplace
+- **Initialized a Node.js project** with proper dependencies and excluded `node_modules` with a `.gitignore` configuration
+- **Created JavaScript source files** implementing a Dad Jokes action and leveraged the `@actions/core` library to handle action outputs
+- **Bundled your action** into a single distributable `dist/index.js` file
+- **Created action metadata** (`action.yml`) defining name, description, outputs, and execution parameters
+- **Authored a GitHub Actions workflow** that uses your custom action
+- **Tested your action** by triggering it with issue comments and validating the output
 
 ### What's next?
 
-- [Take another GitHub Skills course](https://github.com/skills).
-- We'd love to hear what you thought of this course in our [discussion board](https://github.com/orgs/skills/discussions/categories/write-javascript-actions).
-- [Read the GitHub Getting Started docs](https://docs.github.com/en/get-started).
-- To find projects to contribute to, check out [GitHub Explore](https://github.com/explore).
+- Check out the other [GitHub Skills exercises](https://learn.github.com/skills).
+- Try using your Dad Jokes action in your other repositories to add some humor to your workflows!
+
+- **Create your next action** using GitHub's template repositories with best practices like tests and linting already built-in:
+  - [actions/javascript-action](https://github.com/actions/javascript-action) template repository
+  - [actions/typescript-action](https://github.com/actions/typescript-action) template repository

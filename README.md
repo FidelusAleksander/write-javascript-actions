@@ -5,9 +5,10 @@ _Write your own GitHub JavaScript Action and automate customized tasks unique to
 ## Welcome
 
 - **Who is this for**: Developers, GitHub users, users new to Git, students, managers, and for teams.
-- **What you'll learn**: How to consume actions within a workflow file, create custom JavaScript based actions and publish your newly created action to the marketplace.
-- **What you'll build**: A custom JavaScript-based GitHub Action that can be published to the marketplace.
+- **What you'll learn**: How to create custom JavaScript-based GitHub Actions, bundle them for distribution, and use them in workflows.
+- **What you'll build**: A Dad Jokes GitHub Action that fetches random jokes and responds to issue comments.
 - **Prerequisites**:
+
   - You should be familiar with GitHub and GitHub Actions. We recommend taking the [Hello GitHub Actions](https://github.com/skills-dev/hello-github-actions) exercise first.
 
 - **How long**: This exercise takes about 1 hour to complete.
@@ -15,11 +16,11 @@ _Write your own GitHub JavaScript Action and automate customized tasks unique to
 In this exercise, you will:
 
 1. Initialize a JavaScript project
-2. Configure an action
-3. Create a metadata file
-4. Create JavaScript files
-5. Add actions to workflow file
-6. Trigger action
+2. Create JavaScript source files for a Dad Jokes action
+3. Bundle your action into a distributable file
+4. Create action metadata with `action.yml`
+5. Author a workflow that uses your custom action
+6. Test your action by triggering it with issue comments
 
 ### How to start this exercise
 
