@@ -1,33 +1,61 @@
 ## Step 4: Add Action Metadata
 
-### 📖 Theory
+Great work! :tada: You've successfully bundled your Dad Jokes GitHub Action into a single file.
 
-Every GitHub Action requires an `action.yml` metadata file that defines the action's interface. This file tells GitHub:
+Now it's time to create the **action metadata file** - this special file tells GitHub exactly how to use your action when someone includes it in their workflow!
 
-- **What the action does**: Name and description for marketplace and workflows
-- **How to run it**: Which runtime to use (`node24`) and entry point file (`dist/index.js`)
-- **What it provides**: Output values that workflows can access
-- **What it needs**: Input parameters (none in our case)
+### 📖 Theory: Action Metadata
 
-The `action.yml` file is like a contract between your action and the workflows that use it. It must be in the repository root and point to your bundled file.
+Every GitHub Action requires a metadata file that defines how the action should be executed and what parameters it accepts.
+
+#### Metadata File Requirements
+
+The metadata file has specific requirements:
+
+- **Filename**: Must be `action.yml`
+- **Required for**: All actions types - JavaScript, Docker container, and composite actions
+- **Format**: Written in YAML syntax
+
+#### Core Metadata Parameters
+
+| Parameter         | Description                                                    | Required |
+| ----------------- | -------------------------------------------------------------- | :------: |
+| **`name`**        | The name of your action.                                       |    ✅    |
+| **`description`** | A short description of what your action does.                  |    ✅    |
+| **`author`**      | The name of the action's author.                               |    ❌    |
+| **`inputs`**      | Data that the action expects to receive.                       |    ❌    |
+| **`outputs`**     | Data that other actions can use after this action runs.        |    ❌    |
+| **`runs`**        | Tells GitHub how to execute your action.                       |    ✅    |
+| **`branding`**    | Optional color and icon for your action in GitHub Marketplace. |    ❌    |
+
+#### JavaScript Action `runs` Configuration
+
+For JavaScript actions, the `runs` section needs:
+
+- **`using`**: Which Node.js version to use
+- **`main`**: The main JavaScript file to run
+
+> [!TIP]
+> For complete details on all available metadata parameters, optional fields, and advanced configurations, see the official [GitHub Actions metadata syntax documentation](https://docs.github.com/en/actions/reference/workflows-and-actions/metadata-syntax).
+
+---
 
 ### ⌨️ Activity: Create Metadata File
 
 1. Create `action.yml` at the repository root (same level as `package.json`).
 
-    ```yaml
-    name: "Joke Action"
-    description: "Fetches a random joke and exposes it as an output"
+   ```yaml
+   name: "Joke Action"
+   description: "Fetches a random joke and exposes it as an output"
 
-    outputs:
-      joke:
-        description: "The fetched joke text"
+   outputs:
+     joke:
+       description: "The fetched joke text"
 
-    runs:
-      using: node24
-      main: dist/index.js
-    ```
-
+   runs:
+     using: node24
+     main: dist/index.js
+   ```
 
 1. Commit and push:
 
