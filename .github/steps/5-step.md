@@ -1,18 +1,12 @@
 ## Step 5: Create Workflow & Consume Output
 
-### 📖 Theory
+Well done! :clap: You've created the Dad Jokes GitHub Action and defined its metadata.
 
-Now you'll create a workflow that demonstrates your action in use. This workflow will:
-
-1. **Trigger**: Listen for issue comments using the `issue_comment` event
-2. **Filter**: Only run when comments start with `/joke` using a conditional
-3. **Execute**: Use your local action with `uses: ./` (current repository)
-4. **Consume output**: Access the joke via `steps.get-joke.outputs.joke`
-5. **Respond**: Post the joke back as a comment using another action
-
-This pattern shows how actions can be chained together and how outputs flow between steps.
+Your action should be ready to use in any GitHub repository now!
 
 ### ⌨️ Activity: Author Workflow
+
+Let's see your Dad Jokes action in action by creating a GitHub Actions workflow that uses it!
 
 1. Create a new GitHub Actions workflow file with the following name
 
@@ -48,7 +42,7 @@ This pattern shows how actions can be chained together and how outputs flow betw
             body: {% raw %}${{ steps.get-joke.outputs.joke }}{% endraw %}
    ```
 
-   The workflow will run on every issue comment created event. If the comment starts with `/joke`, it will execute the Dad Jokes action and post the joke as a comment in the same issue.
+   This workflow triggers when someone comments `/joke` on an issue and responds with a joke!
 
 1. Commit and push the workflow file to the `main` branch:
 

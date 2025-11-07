@@ -1,20 +1,8 @@
 ## Step 6: Trigger & Validate
 
-### 📖 Theory
+Awesome! :rocket: You've created the Dad Jokes GitHub Action, defined its metadata, and authored a workflow to use it.
 
-Now it's time to test your custom GitHub Action! Your workflow is configured to:
-
-1. **Trigger**: Listen for issue comments that start with `/joke`
-2. **Execute**: Run your Dad Jokes action using the local action (`uses: ./`)
-3. **Output**: Post the retrieved joke as a new comment in the same issue
-
-When you comment `/joke`, GitHub will:
-
-- Trigger the "Joke Action" workflow
-- Check out your repository code
-- Run your bundled action (`dist/index.js`)
-- Your action will fetch a random dad joke from the API
-- The workflow will create a new comment with the joke
+The only thing left to do is test it out!
 
 ### ⌨️ Activity: Try out your action
 
@@ -25,21 +13,18 @@ When you comment `/joke`, GitHub will:
    - Look for a new workflow run titled "Joke Action"
    - The run should show a green checkmark when completed successfully
 
-1. Return to the issue and refresh the page. You should see a new comment posted by `github-actions[bot]` containing a random dad joke!
+1. Return to the issue and you should see a new comment posted by `github-actions[bot]` containing a random dad joke!
 
-   **Example output:**
-
-   ```text
-   What do you call a bear with no teeth? A gummy bear!
-   ```
+1. Mona will post the review of the exercise once the workflow completes **successfully**! 
 
    <details>
-   <summary>Troubleshooting 🛠️</summary><br/>
+   <summary>Having trouble? 🤷</summary><br/>
 
    If the workflow doesn't trigger or fails:
    - Make sure your comment starts exactly with `/joke`
    - Check the Actions tab for error messages
    - Verify that your `dist/index.js` file exists and was committed
+   - If you did any updates to your source code, ensure you re-bundled with `npm run build` and pushed the changes
    - Ensure your `action.yml` file is correctly formatted
 
    </details>
